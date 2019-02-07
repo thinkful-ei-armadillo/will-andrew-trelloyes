@@ -4,14 +4,17 @@ import './List.css';
 
 export default function List(props) {
   return (
-    <section className='List'>
+    <section className='List' listid={props.id}>
       <header className='List-header'>
         <h2>{props.header}</h2>
       </header>
-      <div className='List-cards'>
+      <div className='List-cards' >
         {props.cards.map((card) =>
           <Card
+            onDeleteCard={props.onDeleteCard}
+            listId={props.id}
             key={card.id}
+            id={card.id}
             title={card.title}
             content={card.content}
           />
