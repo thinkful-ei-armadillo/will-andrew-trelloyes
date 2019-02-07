@@ -1,41 +1,39 @@
-import React, { Component } from 'react';
-import List from './List'
-import './App.css';
-import store from './STORE';
+import React, { Component } from "react";
+import List from "./List";
+import "./App.css";
 
 class App extends Component {
   static defaultProps = {
     store: {
       lists: [],
-      allCards: {},
+      allCards: {}
     }
   };
 
-  state = this.props.store
+  state = this.props.store;
 
-  handleDeleteCard = (itemId, listId) => {
-    console.log('Delete click working')
-    const list = this.state.lists.filter(element => element.id === listId)
-    const itemList = list[0].cardIds.filter(element => element !== itemId)
-    console.log(itemList)
-    console.log(list)
-    // this.setState({store})
-    
+  handleDeleteCard = (listId, itemId) => {
+    const updatedList = [...this.state.lists];
+    for (let i = 0; updatedList.length; i++) {
+      if (updatedList[i].id === listId) {
+        updatedList[i].cardIds = updatedList[i].cardIds.filter(
+          element => element !== itemId
+        );
+        break;
+      }
+    }
+    this.setState({ lists: updatedList });
+  };
 
-  }
-
-  handleAddRandomCard = () => {
-
-  }
+  handleAddRandomCard = () => {};
 
   render() {
-
     return (
-      <main className='App'>
-        <header className='App-header'>
+      <main className="App">
+        <header className="App-header">
           <h1>Trelloyes!</h1>
         </header>
-        <div className='App-list'>
+        <div className="App-list">
           {this.state.lists.map(list => (
             <List
               onDeleteCard={this.handleDeleteCard}
